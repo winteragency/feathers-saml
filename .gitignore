@@ -38,3 +38,6 @@ dist/
 .nyc_output/
 .cache
 .mocha-puppeteer
+
+# TypeScript compiled files
+lib
