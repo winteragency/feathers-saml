@@ -46,6 +46,11 @@ export default (options: SamlSetupSettings) => {
         });
     });
 
+    authApp.get('/metadata.xml', async (req, res) => {
+        res.type('application/xml');
+        res.send(sp.create_metadata());
+    });
+
     authApp.post('/assert', async (req, res, next) => {
       const service = app.defaultAuthentication(authService);
       const [ strategy ] = service.getStrategies('saml') as SamlStrategy[];
