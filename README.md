@@ -18,13 +18,13 @@ npm install feathers-saml --save
 ## Get Started
 
 1. [Configure your SP and Idp](#configuration)
-2. [Extend SamlService to handle your user data](#samlservice)
+2. [Extend SamlStrategy to handle your user data](#samlstrategy)
 3. [Implement Express middleware to handle SAML URLs](#express)
 
 Finally, implement the strategy in your `authentication.js` file:
 
 ```js
-authentication.register('saml', new MySamlService());
+authentication.register('saml', new MySamlStrategy());
 ```
 
 ## Configuration
@@ -59,7 +59,7 @@ The exception is the `private_key`, `certificate` and `certificates` properties;
 
 In addition to the `saml2-js` options, the following settings are available:
 
-- `redirect`: The URL of the frontend to redirect to with the access token (or error message). The [authentication client](./client.md) handles those redirects automatically. If not set, the authentication result will be sent as JSON instead.
+- `redirect`: The URL of the frontend to redirect to with the access token (or error message). The [authentication client](https://docs.feathersjs.com/api/authentication/client.html) handles those redirects automatically. If not set, the authentication result will be sent as JSON instead.
 - `path` (default: `'/saml'`) - The SAML base path
 
 ## Usage
@@ -72,9 +72,9 @@ In addition to the `saml2-js` options, the following settings are available:
 - The [SamlStrategy](#samlstrategy) is invoked, which
     - Gets the users profile
     - Finds or creates the user (entity) for that profile
-- The [AuthenticationService](./service.md) creates an access token for that entity
+- The [AuthenticationService](https://docs.feathersjs.com/api/authentication/service.html) creates an access token for that entity
 - Redirect to the `redirect` URL including the generated access token
-- The frontend (e.g. [authentication client](./client.md)) uses the returned access token to authenticate
+- The frontend (e.g. [authentication client](https://docs.feathersjs.com/api/authentication/client.html)) uses the returned access token to authenticate
 - The frontend can redirect the user to `/saml/logout` to trigger the SAML logout flow (Note: not yet functional)
 
 ### SAML URLs
@@ -96,7 +96,7 @@ In the browser a SAML flow can be initiated with a link like:
 
 > __Note:__ This functionality is stolen directly from [@feathersjs/authentication-oauth](https://github.com/feathersjs/feathers/tree/master/packages/authentication-oauth)
 
-The `redirect` configuration option is used to redirect back to the frontend application after SAML authentication was successful and an access token for the user has been created by the [authentication service](./service.md) or if authentication failed. It works cross domain and by default includes the access token or error message in the window location hash. The following configuration
+The `redirect` configuration option is used to redirect back to the frontend application after SAML authentication was successful and an access token for the user has been created by the [authentication service](https://docs.feathersjs.com/api/authentication/service.html) or if authentication failed. It works cross domain and by default includes the access token or error message in the window location hash. The following configuration
 
 ```js
 {
@@ -108,7 +108,7 @@ The `redirect` configuration option is used to redirect back to the frontend app
 }
 ```
 
-Will redirect to `https://app.mydomain.com/#access_token=<user jwt>` or `https://app.mydomain.com/#error=<some error message>`. Redirects can be customized with the [getRedirect()](#getredirect-data) method of the SAML strategy. The [authentication client](./client.md) handles the default redirects automatically already.
+Will redirect to `https://app.mydomain.com/#access_token=<user jwt>` or `https://app.mydomain.com/#error=<some error message>`. Redirects can be customized with the [getRedirect()](#getredirect-data) method of the SAML strategy. The [authentication client](https://docs.feathersjs.com/api/authentication/client.html) handles the default redirects automatically already.
 
 > __Note:__ The redirect is using a hash instead of a query string by default because it is not logged server side and can be easily read on the client. You can force query based redirect by adding a `?` to the end of the `redirect` option.
 
@@ -116,7 +116,7 @@ If the `redirect` option is not set, the authentication result data will be sent
 
 ## Express
 
-`expressSaml` (for setup see the [AuthenticationService](./service.md)) sets up SAML authentication on a [Feathers Express](../express.md) application and can take the following options:
+`expressSaml` (for setup see the [AuthenticationService](https://docs.feathersjs.com/api/authentication/service.html)) sets up SAML authentication on a [Feathers Express](https://docs.feathersjs.com/api/express.html) application and can take the following options:
 
 - `authService`: The name of the authentication service
 
@@ -188,7 +188,7 @@ class MySamlStrategy extends SamlStrategy {
 
 #### getRedirect (data)
 
-`samlStrategy.getRedirect(data) -> Promise` returns the URL to redirect to after a successful SAML login and entity lookup or creation. By default it redirects to `authentication.saml.redirect` from the configuration with `#access_token=<access token for entity>` added to the end of the URL. The `access_token` hash is e.g. used by the [authentication client](./client.md) to log the user in after a successful SAML login. The default redirects do work cross domain.
+`samlStrategy.getRedirect(data) -> Promise` returns the URL to redirect to after a successful SAML login and entity lookup or creation. By default it redirects to `authentication.saml.redirect` from the configuration with `#access_token=<access token for entity>` added to the end of the URL. The `access_token` hash is e.g. used by the [authentication client](https://docs.feathersjs.com/api/authentication/client.html) to log the user in after a successful SAML login. The default redirects do work cross domain.
 
 #### getCurrentEntity(params)
 
@@ -208,7 +208,7 @@ class MySamlStrategy extends SamlStrategy {
 
 #### authenticate(authentication, params)
 
-`samlStrategy.authenticate(authentication, params)` is the main endpoint implemented by any [authentication strategy](./strategy.md). It is usually called for authentication requests for this strategy by the [AuthenticationService](./service.md).
+`samlStrategy.authenticate(authentication, params)` is the main endpoint implemented by any [authentication strategy](https://docs.feathersjs.com/api/authentication/strategy.html). It is usually called for authentication requests for this strategy by the [AuthenticationService](https://docs.feathersjs.com/api/authentication/service.html).
 
 ## TODO
 
