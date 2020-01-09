@@ -1,7 +1,6 @@
 # feathers-saml
 
-[![Latest Stable Version](https://img.shields.io/npm/v/feathers-saml.svg)](https://www.npmjs.com/package/feathers-saml) [![Total Downloads](https://img.shields.io/npm/dt/feathers-saml.svg)](https://npm-stat.com/charts.html?package=feathers-saml)
-[![Dependency Status](https://img.shields.io/david/winteragency/feathers-saml.svg?style=flat-square)](https://david-dm.org/winteragency/feathers-saml) [![Download Status](https://img.shields.io/npm/dm/feathers-saml.svg?style=flat-square)](https://www.npmjs.com/package/feathers-saml) [![License](https://img.shields.io/github/license/winteragency/feathers-saml.svg)](https://github.com/winteragency/feathers-saml) [![Made by Winter](https://img.shields.io/badge/made%20by-%E2%9D%84%20Winter-blue.svg)](https://winteragency.se)
+[![Latest Stable Version](https://img.shields.io/npm/v/feathers-saml.svg)](https://www.npmjs.com/package/feathers-saml) [![Dependency Status](https://img.shields.io/david/winteragency/feathers-saml.svg?style=flat-square)](https://david-dm.org/winteragency/feathers-saml) [![Download Status](https://img.shields.io/npm/dm/feathers-saml.svg?style=flat-square)](https://www.npmjs.com/package/feathers-saml) [![License](https://img.shields.io/github/license/winteragency/feathers-saml.svg)](https://github.com/winteragency/feathers-saml) [![Made by Winter](https://img.shields.io/badge/made%20by-%E2%9D%84%20Winter-blue.svg)](https://winteragency.se)
 
 > SAML2 authentication for Feathers using SAML2-js. Makes Feathers act as a Service Provider.
 
