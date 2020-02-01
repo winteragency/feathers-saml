@@ -15,7 +15,7 @@ export default (options: SamlSetupSettings) => {
   return (feathersApp: Application) => {
     const { authService } = options;
     const app = feathersApp as ExpressApplication;
-    const config = app.get('saml');
+    const config = app.get(authService + 'Saml');
 
     if (!config) {
       debug('No SAML configuration found, skipping Express SAML setup');

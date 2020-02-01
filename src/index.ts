@@ -46,7 +46,7 @@ export const setup = (options: SamlSetupSettings) => (app: Application) => {
     });
 
   debug(`Setting app global SAML object`);
-  app.set('saml', {
+  app.set(options.authService + 'Saml', {
       ...saml,
       path: saml.path ? saml.path : '/saml',
       sp: sp,
