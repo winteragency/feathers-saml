@@ -1,12 +1,26 @@
 # Changelog
 
+## [v1.0.3](https://github.com/winteragency/feathers-saml/tree/v1.0.3) (2020-02-01)
+
+[Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.0.2...v1.0.3)
+
+**Fixed bugs:**
+
+- Not possible to have two different authentication services using SAML with different config [\#6](https://github.com/winteragency/feathers-saml/issues/6)
+
 ## [v1.0.2](https://github.com/winteragency/feathers-saml/tree/v1.0.2) (2020-01-09)
 
 [Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.0.1...v1.0.2)
 
+Readme update only.
+
 ## [v1.0.1](https://github.com/winteragency/feathers-saml/tree/v1.0.1) (2020-01-09)
 
 [Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.0.0...v1.0.1)
+
+**Enhancements:**
+
+- Added Express route to retreive metadata.xml
 
 ## [v1.0.0](https://github.com/winteragency/feathers-saml/tree/v1.0.0) (2020-01-09)
 
