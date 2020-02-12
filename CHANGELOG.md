@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.1.0](https://github.com/winteragency/feathers-saml/tree/v1.1.0) (2020-02-12)
+
+[Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.0.3...v1.1.0)
+
+**Implemented enhancements:**
+
+- Implement logout functionality [\#1](https://github.com/winteragency/feathers-saml/issues/1)
+
 ## [v1.0.3](https://github.com/winteragency/feathers-saml/tree/v1.0.3) (2020-02-01)
 
 [Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.0.2...v1.0.3)
@@ -12,15 +20,9 @@
 
 [Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.0.1...v1.0.2)
 
-Readme update only.
-
 ## [v1.0.1](https://github.com/winteragency/feathers-saml/tree/v1.0.1) (2020-01-09)
 
 [Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.0.0...v1.0.1)
-
-**Enhancements:**
-
-- Added Express route to retreive metadata.xml
 
 ## [v1.0.0](https://github.com/winteragency/feathers-saml/tree/v1.0.0) (2020-01-09)
 
