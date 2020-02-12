@@ -44,7 +44,19 @@ Configuration and usage will depend on your IdP. To get started, configure your 
           "sso_login_url": "https://some-idp.org/saml/SSO",
           "sso_logout_url": "https://some-idp.org/saml/SLO",
           "certificates": ["idp-cert.crt"]
-      }
+      },
+      "loginRequestOptions": {
+        // Optional additional options for the login request, such as "relay_state", see https://www.npmjs.com/package/saml2-js#create_login_request_url
+      },
+      "loginResponseOptions": {
+        // Optional additional options for the login response, such as "relay_state", see https://www.npmjs.com/package/saml2-js#post_assert
+      },
+      "logoutRequestOptions": {
+        // Optional additional options for the logout request, such as "relay_state", see https://www.npmjs.com/package/saml2-js#create_logout_response_url
+      },
+      "logoutResponseOptions": {
+        // Optional additional options for the logout response, such as "relay_state", see https://www.npmjs.com/package/saml2-js#create_logout_request_url
+      },
     }
   }
 }
@@ -71,10 +83,10 @@ In addition to the `saml2-js` options, the following settings are available:
 - The [SamlStrategy](#samlstrategy) is invoked, which
     - Gets the users profile
     - Finds or creates the user (entity) for that profile
-- The [AuthenticationService](https://docs.feathersjs.com/api/authentication/service.html) creates an access token for that entity
+- The [AuthenticationService](https://docs.feathersjs.com/api/authentication/service.html) creates an access token for that entity. The token payload will additionally include `nameId` and `sessionIndex` which are required later for logout.
 - Redirect to the `redirect` URL including the generated access token
 - The frontend (e.g. [authentication client](https://docs.feathersjs.com/api/authentication/client.html)) uses the returned access token to authenticate
-- The frontend can redirect the user to `/saml/logout` to trigger the SAML logout flow (Note: not yet functional)
+- The frontend can redirect the user to `/saml/logout?nameId=xxx&sessionIndex=xxx` to trigger the SAML logout flow, providing the `nameId` and `sessionIndex` from the access token payload
 
 ### SAML URLs
 
@@ -83,12 +95,19 @@ There are several URLs and redirects that are important for SAML authentication:
 - `http(s)://<host>/saml`: The main URL to initiate the SAML flow. Link to this from the browser.
 - `http(s)://<host>/saml/metadata.xml`: The URL to the generated SP metadata file, to be provided to the IdP.
 - `http(s)://<host>/saml/assert`: The ACS that the IdP will redirect back to for validation.
-- `http(s)://<host>/saml/logout`: The URL to trigger the SAML logout flow (Note: not yet functional)
+- `http(s)://<host>/saml/logout`: The URL to trigger the SAML logout flow
+- `http(s)://<host>/saml/sso`: The SLO endpoint the IdP should redirect to after a successful logout
 
 In the browser a SAML flow can be initiated with a link like:
 
 ```html
 <a href="/saml">Login with IdentityProvider</a>
+```
+
+or
+
+```html
+<a href="/saml/logout?nameId={{ nameIdFromJWTPayload }}&sessionIndex={{ sessionIndexFromJWTPayload }}">Logout</a>
 ```
 
 ### Redirects
@@ -152,10 +171,7 @@ class MySamlStrategy extends SamlStrategy {
   async getEntityData (samlUser: SamlUser, _existingEntity: any, params) {
     return {
         [`email`]: samlUser.attributes.email,
-        [`fullName`]: samlUser.attributes.fullName,
-        // NameId and SessionIndex are required if you wish to use SAML Logout as well. This sample stores them on the user in your DB.
-        [`nameId`]: samlUser.name_id,
-        [`sessionIndex`]: samlUser.session_index
+        [`fullName`]: samlUser.attributes.fullName
     };
   }
 }
@@ -208,11 +224,6 @@ class MySamlStrategy extends SamlStrategy {
 #### authenticate(authentication, params)
 
 `samlStrategy.authenticate(authentication, params)` is the main endpoint implemented by any [authentication strategy](https://docs.feathersjs.com/api/authentication/strategy.html). It is usually called for authentication requests for this strategy by the [AuthenticationService](https://docs.feathersjs.com/api/authentication/service.html).
-
-## TODO
-
-- SAML Logout is currently not functional.
-- Write tests
 
 ## License
 
