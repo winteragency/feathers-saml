@@ -1,6 +1,6 @@
 {
   "name": "feathers-saml",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "SAML2 authentication for Feathers using SAML2-js. Makes Feathers act as a Service Provider.",
   "main": "lib/",
   "types": "lib/",
