@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.1.1](https://github.com/winteragency/feathers-saml/tree/v1.1.1) (2020-07-20)
+
+[Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.1.0...v1.1.1)
+
+**Implemented enhancements:**
+
+- Allow setting custom JWT expiry to prevent token re-use attack [\#8](https://github.com/winteragency/feathers-saml/issues/8)
+
+**Merged pull requests:**
+
+- Bump lodash from 4.17.15 to 4.17.19 [\#7](https://github.com/winteragency/feathers-saml/pull/7) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.1.0](https://github.com/winteragency/feathers-saml/tree/v1.1.0) (2020-02-12)
 
 [Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.0.3...v1.1.0)
