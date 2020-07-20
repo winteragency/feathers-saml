@@ -57,6 +57,7 @@ Configuration and usage will depend on your IdP. To get started, configure your 
       "logoutResponseOptions": {
         // Optional additional options for the logout response, such as "relay_state", see https://www.npmjs.com/package/saml2-js#create_logout_request_url
       },
+      "samlTokenExpiry": "30s" // Optionally use a different JWT expiry time for the token generated during the SAML process
     }
   }
 }
@@ -112,7 +113,7 @@ or
 
 ### Redirects
 
-> __Note:__ This functionality is stolen directly from [@feathersjs/authentication-oauth](https://github.com/feathersjs/feathers/tree/master/packages/authentication-oauth)
+> __Note:__ This functionality is stolen directly from [@feathersjs/authentication-oauth](https://github.com/feathersjs/feathers/tree/master/packages/authentication-oauth) with the exception of the custom JWT lifetime option.
 
 The `redirect` configuration option is used to redirect back to the frontend application after SAML authentication was successful and an access token for the user has been created by the [authentication service](https://docs.feathersjs.com/api/authentication/service.html) or if authentication failed. It works cross domain and by default includes the access token or error message in the window location hash. The following configuration
 
@@ -131,6 +132,34 @@ Will redirect to `https://app.mydomain.com/#access_token=<user jwt>` or `https:/
 > __Note:__ The redirect is using a hash instead of a query string by default because it is not logged server side and can be easily read on the client. You can force query based redirect by adding a `?` to the end of the `redirect` option.
 
 If the `redirect` option is not set, the authentication result data will be sent as JSON instead.
+
+#### Important: Location hash security
+
+Passing the JWT as a location hash, while convenient when building for example an SPA, creates a potential attack vector where the browser saves the full URL in its history. This would, on say a shared computer, allow someone to go into the browser history and click on the link and be immediately authenticated, provided the JWT hasn't expired.
+
+This module has a `samlTokenExpiry` option in its configuration which can be set to something very short, such as `30s`. You can then implement a custom JWT strategy that will regenerate a new, long(er)-lived token whenever the short-lived token is used for authentication. This gives an attacker no time to excerise the above attack in practice.
+
+```js
+const { JWTStrategy } = require('@feathersjs/authentication')
+
+
+module.exports = class SamlJWTStrategy extends JWTStrategy {
+  async authenticate(authentication, params) {
+    const res = await super.authenticate(authentication, params)
+
+    // If the token was generated using the SAML strategy, drop it from
+    // the response, causing Feathers to generate a new one automatically.
+    // The Feathers Client library will pick up this new token on its own
+    // and use it for future requests.
+    if (res.authentication.payload.samlToken === true) {
+      delete res.accessToken;
+    }
+
+    return res;
+  }
+}
+
+```
 
 ## Express
 

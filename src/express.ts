@@ -102,10 +102,17 @@ export default (options: SamlSetupSettings) => {
 
         params.payload = {
           nameId: samlResponse && samlResponse.user && samlResponse.user.name_id ? samlResponse.user.name_id : null,
-          sessionIndex: samlResponse && samlResponse.user && samlResponse.user.session_index ? samlResponse.user.session_index : null
+          sessionIndex: samlResponse && samlResponse.user && samlResponse.user.session_index ? samlResponse.user.session_index : null,
+          samlToken: true
         };
-
+        
         debug(`Calling ${authService}.create authentication with SAML strategy`);
+
+        if (config.samlTokenExpiry) {
+          params.jwtOptions = {
+            expiresIn: config.samlTokenExpiry
+          };
+        }
 
         const authResult = await service.create(authentication, params);
 
