@@ -1,5 +1,21 @@
 # Changelog
 
+## [v1.1.3](https://github.com/winteragency/feathers-saml/tree/v1.1.3) (2021-01-27)
+
+[Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.1.2...v1.1.3)
+
+**Implemented enhancements:**
+
+- Updated saml2-js to 2.0.7
+
+## [v1.1.2](https://github.com/winteragency/feathers-saml/tree/v1.1.2) (2021-01-27)
+
+[Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.1.1...v1.1.2)
+
+**Implemented enhancements:**
+
+- Accidental release :P
+
 ## [v1.1.1](https://github.com/winteragency/feathers-saml/tree/v1.1.1) (2020-07-20)
 
 [Full Changelog](https://github.com/winteragency/feathers-saml/compare/v1.1.0...v1.1.1)
