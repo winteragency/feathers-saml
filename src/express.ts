@@ -158,8 +158,13 @@ export default (options: SamlSetupSettings) => {
         logoutRequestOptions = config.logoutRequestOptions;
       }
 
-      logoutRequestOptions.name_id = nameId;
-      logoutRequestOptions.session_ndex = sessionIndex;
+      if(typeof logoutRequestOptions.name_id === 'object') {
+        logoutRequestOptions.name_id['#text'] = nameId;
+      } else {
+        logoutRequestOptions.name_id = nameId;
+      }
+
+      logoutRequestOptions.session_index = sessionIndex;
 
       sp.create_logout_request_url(
         idp,
