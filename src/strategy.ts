@@ -95,11 +95,7 @@ export class SamlStrategy extends AuthenticationBaseStrategy {
 
     const { redirect } = this.authentication.configuration.saml;
 
-    const separator = redirect.endsWith('?')
-      ? ''
-      : redirect.indexOf('#') !== -1
-        ? '?'
-        : '#';
+    const separator = redirect.endsWith('?') ? '' : '?'
     const authResult: AuthenticationResult = data;
     const query = authResult.accessToken
       ? {
